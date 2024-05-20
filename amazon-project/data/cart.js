@@ -1,4 +1,5 @@
-export let cart = JSON.parse(localStorage.getItem('amazonCart')) || [];
+export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cartQuantity = Number(localStorage.getItem('cartQuantity')) || 0;
 
 export function addToCart(productId) {
     //cart = JSON.parse(localStorage.getItem('amazonCart'));
@@ -12,6 +13,7 @@ export function addToCart(productId) {
         if(productId === cartItem.productId) {
             matchingItem = cartItem;
             cartItem.quantity += quantity;
+            cartQuantity += quantity;
         }
     });
 
@@ -20,10 +22,14 @@ export function addToCart(productId) {
         cart.push({
             productId: productId,
             quantity: quantity,
+            deliveryOptionId: '1',
         })
+        cartQuantity += quantity;
     }
 
-    localStorage.setItem('amazonCart', JSON.stringify(cart));
+    console.log(cart);
+    saveToStorage(cartQuantity);
+    //localStorage.setItem('amazonCart', JSON.stringify(cart));
 
     //display added top of the Add to Cart button
     let AddedToCart = document.querySelector(`.js-added-to-cart-${productId}`);
@@ -40,13 +46,24 @@ export function addToCart(productId) {
 
 export function removeFromCart(productId) {
     let newCart = [];
+    let removeCartQuantity = 0;
     cart.forEach((cartItem) => {
 
        if(cartItem.productId !== productId) {
+           removeCartQuantity += cartItem.quantity;
            newCart.push(cartItem);
        }
     });
     cart = newCart;
-    localStorage.setItem('amazonCart', JSON.stringify(newCart));
+
+    saveToStorage(removeCartQuantity)//localStorage.setItem('amazonCart', JSON.stringify(newCart));
+
+}
+
+function saveToStorage(cartProductNumber) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('cartQuantity', Number(cartProductNumber));
+    cartQuantity = Number(cartProductNumber);
+
 
 }

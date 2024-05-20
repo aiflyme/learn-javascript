@@ -1,4 +1,4 @@
-import {cart, addToCart} from '../data/cart.js';
+import {cart,cartQuantity, addToCart} from '../data/cart.js';
 import {products} from "../data/products.js";
 import {formatCurrency} from "../utils/money.js";
 let productsHtml = '';
@@ -49,6 +49,8 @@ products.forEach((product)=>{
 
 //generate product list
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
+//get the cart quantity
+document.querySelector('.js-cart-quantity').innerText = Number(localStorage.getItem('cartQuantity'));
 
 //generate product quantity list
 let selectOptionHtml = '';
@@ -64,7 +66,7 @@ document.querySelectorAll('.js-product-quantity-select-container').forEach((valu
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     button.addEventListener('click',()=>{
         const productId = button.dataset.productId;
-
+        //click the add to cart
         addToCart(productId);
         updateCartQuantity();
 
@@ -72,10 +74,12 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
 });
 
 function updateCartQuantity() {
-    let cartQuantity = 0;
-    cart.forEach((cartItem)=>{
-        cartQuantity += cartItem.quantity;
-    });
+    // let cartQuantity = 0;
+    // cart.forEach((cartItem)=>{
+    //     cartQuantity += cartItem.quantity;
+    // });
+    //
+    // document.querySelector('.js-cart-quantity').innerText = cartQuantity;
 
-    document.querySelector('.js-cart-quantity').innerText = cartQuantity;
+    document.querySelector('.js-cart-quantity').innerText = Number(localStorage.getItem('cartQuantity'));
 }
