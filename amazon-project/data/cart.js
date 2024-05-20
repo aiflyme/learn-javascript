@@ -3,6 +3,7 @@ export const cart = [];
 export function addToCart(productId) {
     //get quantity user choose
     let quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
+    let timeoutId;
 
     let matchingItem;
     cart.forEach((cartItem) => {
@@ -20,6 +21,7 @@ export function addToCart(productId) {
         })
     }
 
+    localStorage.setItem('amazonCart', JSON.stringify(cart));
 
     //display added top of the Add to Cart button
     let AddedToCart = document.querySelector(`.js-added-to-cart-${productId}`);
@@ -32,5 +34,4 @@ export function addToCart(productId) {
     timeoutId = setTimeout(() => {
         AddedToCart.style.setProperty('opacity', '0');
     },2000);
-    console.log(cart);
 }
