@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dom</title>
+    <STYLE>
+        body {
+            font-family: Arial;
+        }
+        .subscribe {
+            border: none;
+            background-color: black;
+            color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+        .is-subscribed {
+            background-color: gray;
+            color: black;
+        }
+
+        .priceInput {
+            font-size: 15px;
+            padding: 10px;
+        }
+        .calculate {
+            background-color: green;
+            padding: 10px 15px;
+            color: white;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </STYLE>
+</head>
+<body>
+    <p>
+        YouTube Subscribe Button
+    </p>
+    <p>
+        <button class="subscribe" onclick="subscribe()">Subscribe</button>
+    </p>
+    <p>
+        <input class='priceInput' type="text" onkeydown="
+            if(event.key==='Enter'){
+                calculate();
+            }
+        " placeholder="Cost of order"> <button class="calculate" onclick="calculate()" >Calculate</button>
+    </p>
+    <p class="priceResult">
+    </p>
+    <script>
+        // document.querySelector('.calculate').addEventListener("keypress", function(event) {
+        //         if (event.keyCode === 13 || event.key === 'Enter') {
+        //             alert('1');
+        //         }
+        // });
+
+        function subscribe() {
+            let  buttonElement = document.querySelector('.subscribe');
+            if(buttonElement.innerText === 'Subscribe') {
+                buttonElement.innerText = 'Subscribed';
+                buttonElement.classList.add('is-subscribed');
+            }
+            else {
+                buttonElement.innerText = 'Subscribe';
+                buttonElement.classList.remove('is-subscribed');
+            }
+        }
+
+        function calculate() {
+            let buttonPrice = document.querySelector('.priceInput').value;
+            if(isNumeric(buttonPrice)) {
+                if (Number(buttonPrice) > 0 && Number(buttonPrice) < 40) {
+                    buttonPrice = Number(buttonPrice) +10;
+                }
+
+                document.querySelector('.priceResult').innerHTML=`$${buttonPrice}`;
+
+            }
+            else {
+                document.querySelector('.priceResult').innerHTML='Wrong data you input';
+            }
+
+        }
+
+        function isNumeric(str) {
+            if (typeof str != "string") return false // we only process strings!
+            return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+                !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+        }
+    </script>
+</body>
+</html>

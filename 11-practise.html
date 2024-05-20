@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 11a
+        let arr1 = [10,20,30];
+        arr1[2] = 99;
+        console.log(arr1);
+
+        //11b
+        function getLastValue(array) {
+            return array.pop();
+        }
+        console.log(getLastValue([1,20,22,24,5]));
+        console.log(getLastValue(['hi','hello','good']));
+
+        // 11c
+        function arraySwap(array) {
+            let arr = [];
+            let j = 0;
+            for(let i=array.length-1; i >= 0 ; i--){
+                arr[j] = array[i];
+                j++;
+            }
+            return arr;
+        }
+        console.log(arraySwap([1,20,22,24,5]));
+        console.log(arraySwap(['hi','hello','good']));
+
+        // 11d 11f
+        // for(let i= 0; i <= 10 ; i = i+2){
+        //     console.log(i);
+        // }
+
+        let i= 0;
+        while (i<=10){
+            console.log(i);
+            i += 2;
+        }
+
+        // 11e 11f
+        // for(let i= 5; i >= 0 ; i--){
+        //     console.log(i);
+        // }
+        let j= 5;
+        while (j>=0){
+            console.log(j);
+            j--;
+        }
+
+        // 11g
+        let arr = [];
+        [1,2,3].forEach((value,index) => {
+            arr[index] = value +1;
+        });
+        console.log(arr);
+
+        // 11h
+        function addOne(array) {
+            let arr = [];
+            array.forEach((value,index) => {
+                arr[index] = value +1;
+            });
+            console.log(arr);
+        }
+        addOne([1,2,3]);
+        addOne([-2,-1,0,99]);
+
+        // 11i
+        function addNum(array, num) {
+            let arr = [];
+            array.forEach((value,index) => {
+                arr[index] = value + num;
+            });
+            console.log(arr);
+        }
+        addNum([1,2,3],2);
+        addNum([1,2,3],3);
+        addNum([-2,-1,0,99],2);
+
+        // 11j
+        function addArrays(array1, array2) {
+            let arr = [];
+            for(let i=0; i <array1.length; i++){
+                arr[i] = array1[i] + array2[i];
+            }
+            console.log(arr);
+        }
+        addArrays([1,1,2],[1,1,3]);
+        addArrays([1,2,3],[4,5,6]);
+
+        // 11k
+        function countPositive(nums) {
+            let i =0;
+            nums.forEach((value,index) => {
+                if(value>=0) i++;
+            });
+            return console.log(i);
+        }
+        countPositive([1,-3,5]);
+        countPositive([-2,3,-5,7,10]);
+
+        // 11l
+        function minMax(nums) {
+            let max = null, min = null;
+            nums.forEach((value, index) => {
+                if(index === 0) {
+                    max = min = value;
+                }
+                max = value > max ? value : max ;
+                min = value < max ? value : min ;
+            });
+            let numObj ={
+                'min':min,
+                'max':max,
+            }
+            console.log(numObj);
+        }
+        minMax([1,-3,5]);
+        minMax([-2,3,-5,7,10]);
+        minMax([]);
+        minMax([3]);
+
+        // 11n
+        function countWords(words) {
+            let result = {};
+            let word = '';
+            words.forEach((value,index) => {
+                word = words[index];
+                if(!result[word])  result[word] = 1;
+                else result[word]++;
+            });
+            console.log(result);
+        }
+        countWords(['apple','grape','apple','apple'])
+
+        // 11o
+        console.log('11o');
+        function findWord(array, word) {
+            array.forEach((value,index) => {
+                if(word === value){
+                    console.log(index);
+                }
+            });
+            console.log(-1);
+        }
+        findWord(['hello','world','search','good'], 'search');
+        findWord(['not','found'], 'search');
+
+        // 11p
+        console.log('11p');
+        function findWord2(array, word) {
+           for(let i =0; i<array.length; i++){
+                if(word === array[i]){
+                    console.log(i);
+                    break;
+                }
+               console.log(-1);
+            }
+
+        }
+        findWord2(['hello','world','search','good','search'], 'search');
+        findWord2(['not','found'], 'search');
+
+        // 11q
+        console.log('11q');
+        function findiIndex(array, word) {
+            let index  = -1
+            for(let i =0; i<array.length; i++){
+                if(word === array[i]){
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        }
+        console.log(findiIndex(['green','red','blue','red'], 'red'));
+        console.log(findiIndex(['green','red','blue','red'],'yellow'));
+
+        //11r
+        console.log('11r');
+        function removeEgg(foods) {
+            let result = [];
+            for(let i =0; i<foods.length ; i++){
+                if(foods[i] === 'egg') {
+                    continue;
+                }
+                // else {
+                //     result[j] = foods[i];
+                //     j++;
+                // }
+                result.push(foods[i]);
+            }
+            console.log(result);
+        }
+        removeEgg(['egg','apple','egg','egg','ham']);
+
+        // 11s
+        console.log('11s');
+        function removeEgg1(foods) {
+            let result = []; j=0
+            for(let i =0; i<foods.length ; i++){
+                if(foods[i] === 'egg' && j < 2) {
+                    j++;
+                    continue;
+                }
+                result.push(foods[i]);
+            }
+            console.log(result);
+        }
+        removeEgg1(['egg','apple','egg','egg','ham']);
+
+        // 11s
+        console.log('11t');
+        function removeEgg2(foods) {
+            let reverseFoods = foods.reverse();
+            let result = []; j=0
+            for(let i =0; i<reverseFoods.length ; i++){
+                if(reverseFoods[i] === 'egg' && j < 2) {
+                    j++;
+                    continue;
+                }
+                result.push(reverseFoods[i]);
+            }
+            console.log(result.reverse());
+        }
+        removeEgg2(['egg','apple','egg','egg','ham']);
+
+        //11u
+        console.log('11u');
+        let foods = ['egg','apple','egg','egg','ham'];
+        function removeEgg3(foods) {
+            let newFoods = foods.slice();
+            let reverseFoods = newFoods.reverse();
+            let result = []; j=0
+            for(let i =0; i<reverseFoods.length ; i++){
+                if(reverseFoods[i] === 'egg' && j < 2) {
+                    j++;
+                    continue;
+                }
+                result.push(reverseFoods[i]);
+            }
+            console.log(result.reverse());
+            console.log(foods);
+        }
+        removeEgg3(['egg','apple','egg','egg','ham']);
+
+        //11v
+        console.log('11v');
+        let str = '';
+        for(let i = 1; i<=20; i++){
+            if(i % 3 ===0 && i % 5 ===0){
+                str += 'FizzBuzz,';
+            }else if(i % 5 ===0){
+                str += 'Buzz,';
+            }else if(i % 3 ===0){
+                str += 'Fizz,';
+            }else{
+                str += i+',';
+            }
+        }
+        console.log(str.slice(0,-1));
+
+        // 11w
+        console.log('11w');
+        function unique(array) {
+            let result = []; j = 0;
+            for(let i =0; i<array.length; i++){
+                if(findiIndex(result, array[i]) === -1){
+                    result[j] =  array[i];
+                    j++;
+                }
+            }
+            return result;
+        }
+        console.log(unique(['green','red','blue','red']));
+        console.log(unique(['green','red','green','red']));
+    </script>
+</body>
+</html>

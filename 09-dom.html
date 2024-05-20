@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dom</title>
+</head>
+<body>
+    <p>
+        YouTube Subscribe Button
+    </p>
+    <p>
+        <button class="subscribe" onclick="subscribe()">Subscribe</button>
+    </p>
+    <p>
+        <input class='priceInput' type="text" onkeydown="
+            if(event.key==='Enter'){
+                calculate();
+            }
+        " placeholder="Cost of order"> <button class="calculate" onclick="calculate()" >Calculate</button>
+    </p>
+    <p class="priceResult">
+    </p>
+    <script>
+        // document.querySelector('.calculate').addEventListener("keypress", function(event) {
+        //         if (event.keyCode === 13 || event.key === 'Enter') {
+        //             alert('1');
+        //         }
+        // });
+
+        function subscribe() {
+            let  buttonElement = document.querySelector('.subscribe');
+            if(buttonElement.innerText === 'Subscribe')  buttonElement.innerText = 'Subscribed';
+            else buttonElement.innerText = 'Subscribe';
+        }
+
+        function calculate() {
+            let buttonPrice = document.querySelector('.priceInput').value;
+            if(isNumeric(buttonPrice)) {
+                if (Number(buttonPrice) > 0 && Number(buttonPrice) < 40) {
+                    buttonPrice = Number(buttonPrice) +10;
+                }
+
+                document.querySelector('.priceResult').innerText=`$${buttonPrice}`;
+
+            }
+            else {
+                document.querySelector('.priceResult').innerText='Wrong data you input';
+                //buttonPrice.value =
+            }
+
+        }
+
+        function isNumeric(str) {
+            if (typeof str != "string") return false // we only process strings!
+            return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+                !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+        }
+    </script>
+</body>
+</html>

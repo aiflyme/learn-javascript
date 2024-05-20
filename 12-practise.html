@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App</title>
+    <style>
+        .changeStyle{
+            background-color: darkgrey;
+            color: black;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!--    12c-->
+    <button class="changeStyle">Start</button>
+<!--12e-->
+    <button class="addCart">Add to cart</button>
+    <p class="addCartInfo"></p>
+    <p>
+        <button class="addTitleNumber">Add</button>
+        <button class="removeTitleNumber">Remove</button>
+    </p>
+    <script>
+        // 12a
+        let add = ()=>{
+            console.log(2+3);
+        };
+        add();
+        add();
+
+        // 12b
+        function runTwice(fun) {
+            fun();
+            fun();
+        }
+        runTwice(function (){console.log('12b')});
+        runTwice(add);
+
+        // 12c 12d
+        let changeStyle = document.querySelector('.changeStyle');
+        changeStyle.addEventListener('click',()=>{
+            changeStyle.innerHTML = 'Loading...';
+           setTimeout(() => {
+                changeStyle.innerHTML = 'Finished!';
+            },1500);
+        });
+
+        //12e
+        let timeoutId;
+        let addCart = document.querySelector('.addCart');
+        addCart.addEventListener('click', ()=>{
+            clearTimeout(timeoutId);
+            document.querySelector('.addCartInfo').innerText = 'Added';
+            timeoutId = setTimeout(() => {
+                document.querySelector('.addCartInfo').innerText = '';
+            },2000);
+        });
+
+        // 12g
+        // setInterval(()=>{
+        //     document.title = '(' + Math.ceil(Math.random()*10)+') New message'
+        // },10000);
+
+        // 12h
+        let number = 2;
+        setInterval(()=>{
+            if(number >=0){
+                document.title = '(' + number+') New message';
+            }
+            else {
+                document.title = 'app';
+                number = 0;
+            }
+        },2000);
+        document.querySelector('.addTitleNumber').addEventListener('click',()=>{
+            number++;
+        });
+        document.querySelector('.removeTitleNumber').addEventListener('click',()=>{
+           number--;
+        });
+
+        // 12j 12k
+        console.log('12j');
+        function multiply(a,b) {
+            console.log(a * b);
+        }
+        multiply(2,3);
+        multiply(7,10);
+
+        let multiply1 = (a,b) => { return a * b};
+        //const multiply = (a, b) => a * b;
+
+        // 12l
+        console.log('12l');
+        countPositive = (nums) =>{
+            let i = 0;
+            nums.forEach((value,index)=>{
+                if(value>=0) i++;
+            });
+            console.log(i);
+        };
+        countPositive([1,-3,5]);
+        countPositive([-2,3,-5,7,10]);
+
+        // 12m
+        function addNum(array, num) {
+            return array.map((value) =>
+                value += num
+            );
+            //return array.map((value) => value + num);
+        }
+        console.log(addNum([1, 2, 3], 2));
+        console.log(addNum([-2, -1, 0, 99], 2));
+
+        // 12n
+        function removeEgg(foods) {
+            let result = foods.filter((word)  => word !=='egg')
+            console.log(result);
+        }
+        removeEgg(['egg','apple','egg','egg','ham']);
+
+        // 12o
+        function removeEgg1(foods) {
+            let eggCount = 0;
+            return foods.filter((word)  => {
+                if(word === 'egg' && eggCount<2){
+                    eggCount++;
+                    return false;
+                }
+                return true;
+            });
+        }
+        console.log(removeEgg1(['egg','apple','egg','egg','ham']));
+
+        // 12p
+
+
+    </script>
+</body>
+</html>

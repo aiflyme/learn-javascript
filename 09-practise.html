@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button>9a</button> <button class="querySelector">9b</button>
+    <p>
+        <button class="headsTails">heads</button> <button class="headsTails">tails</button>
+    </p>
+    <p class="result"></p>
+    <p>
+        <input placeholder="you name" class="input-name" type="text"><button class="input-submit">Submit</button>
+    </p>
+    <p class="name-result"></p>
+
+    <p>
+        <input placeholder="input something" class="input-something" type="text">
+    </p>
+    <p class="realtime-result"></p>
+    <script>
+        console.log(document.querySelector('button'));
+
+        document.querySelector('.querySelector').addEventListener('click',()=>{
+            document.querySelector('.querySelector').innerText = '9b done!';
+        });
+
+        document.querySelectorAll('.headsTails').forEach((button,index)=>{
+            button.addEventListener('click', ()=>{
+                document.querySelector('.result').innerText = `You choose ${button.innerText}`;
+            })
+        })
+
+        document.querySelector('.input-submit').addEventListener('click',()=>{
+            let name = document.querySelector('.input-name').value;
+            document.querySelector('.name-result').innerText = `Your name is ${name}`;
+        });
+        document.body.addEventListener('keydown',(event)=>{
+            if(event.key === 'Enter'){
+                let name = document.querySelector('.input-name').value;
+                document.querySelector('.name-result').innerText = `Your name is ${name}`;
+            }
+
+        });
+
+        document.body.addEventListener('keyup',(event)=>{
+            document.querySelector('.realtime-result').innerText = document.querySelector('.input-something').value;
+        });
+
+
+        function calculate() {
+            let buttonPrice = document.querySelector('.priceInput').value;
+            if(isNumeric(buttonPrice)) {
+                if (Number(buttonPrice) > 0 && Number(buttonPrice) < 40) {
+                    buttonPrice = Number(buttonPrice) +10;
+                }
+
+                document.querySelector('.priceResult').innerText=`$${buttonPrice}`;
+
+            }
+            else {
+                document.querySelector('.priceResult').innerText='Wrong data you input';
+                //buttonPrice.value =
+            }
+        }
+
+
+    </script>
+</body>
+</html>

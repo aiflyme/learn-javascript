@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .add-cart{
+            background-color: rgb(255,216,20);
+            border: none;
+            padding: 10px 50px;
+            font-weight: bold;
+            border-radius: 50px;
+        }
+        .request-now{
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            padding: 15px 20px;
+        }
+        .schedule-later{
+            background-color: rgb(230,230,230);
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .gaming{
+            background-color: rgb(230,230,230);
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        .group-button{
+            background-color: rgb(230,230,230);
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: none;
+        }
+        .group-button2{
+            background-color: rgb(230,230,230);
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: none;
+        }
+        .is-toggled{
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="add-cart js-add-cart">Add to Cart</button>
+    <button class="request-now">Request now</button>
+    <button class="schedule-later">Schedule for later</button>
+<!--    10c-->
+    <p>
+        <button class="js-button test">Test</button>
+    </p>
+<!--    10d-->
+    <p>
+        <button class="gaming ">Gaming</button>
+    </p>
+<!--    10e,10f-->
+    <p>
+        <button class="group-button">Gaming</button>
+        <button class="group-button">Music</button>
+        <button class="group-button">Tech</button>
+    </p>、
+    <!--    10g-->
+    <p>
+        <button class="group-button2">Gaming</button>
+        <button class="group-button2">Music</button>
+        <button class="group-button2">Tech</button>
+    </p>
+    <script>
+        let jsButton = document.querySelector('.js-button').classList.contains('test');
+        console.log(jsButton);
+
+        document.querySelector('.gaming').addEventListener('click',()=>{
+            if(document.querySelector('.gaming').classList.contains('is-toggled')){
+                document.querySelector('.gaming').classList.remove('is-toggled');
+            }else{
+                document.querySelector('.gaming').classList.add('is-toggled');
+            }
+        });
+
+        document.querySelectorAll('.group-button').forEach((button,index)=>{
+            button.addEventListener('click',()=>{
+                if(button.classList.contains('is-toggled')){
+                    button.classList.remove('is-toggled');
+                }else{
+                    button.classList.add('is-toggled');
+                }
+            });
+        });
+
+        document.querySelectorAll('.group-button2').forEach((button,index)=>{
+            button.addEventListener('click',()=>{
+                if(button.classList.contains('is-toggled')){
+                    document.querySelectorAll('.group-button2').forEach((button,index)=>{
+                        button.classList.add('is-toggled');
+                    });
+                    button.classList.remove('is-toggled');
+                }else{
+                    document.querySelectorAll('.group-button2').forEach((button,index)=>{
+                        button.classList.remove('is-toggled');
+                    });
+                    button.classList.add('is-toggled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

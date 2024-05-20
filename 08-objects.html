@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Objects</title>
+</head>
+<body>
+    <button class="buttonChoose">heads</button> <button  class="buttonChoose">tails</button>
+    <p class="result"></p>
+    <p class="headsTails"></p>
+    <script>
+        const product = {
+            name:'socks',
+            price:1090,
+        };
+        console.log(product);
+
+        let string = 'This is you friends';
+        console.log(string.toLowerCase());
+
+        let headsTails = JSON.parse(localStorage.getItem('headsTails')) ||  {
+            win: 0,
+            lost: 0,
+        };
+        let result;
+
+        document.querySelectorAll('.buttonChoose').forEach((buttonElement,index) => {
+            buttonElement.addEventListener('click', ()=>{
+                let buttonChoose = buttonElement.innerText;
+
+                if(buttonChoose === 'heads'){
+                    headsTails.win += 1;
+                    result = 'You win';
+                } else{
+                    headsTails.lost += 1;
+                    result = 'You lost';
+                }
+                document.querySelector('.result').innerText = result;
+                setTimeout(`document.querySelector('.result').innerText='';`,2000);
+                document.querySelector('.headsTails').innerText = ` Wins: ${headsTails.win}, Losses: ${headsTails.lost}`;
+                localStorage.setItem('headsTails',JSON.stringify(headsTails));
+            });
+        });
+
+        function disappear() {
+            document.querySelector('.result').innerText='';
+        }
+
+
+        function randomNumber() {
+            let guess = Math.random() < 0.5 ? 'heads' : 'tails';
+            return guess === 'heads' ? 'You win' : 'You lost!';
+        }
+
+    </script>
+</body>
+</html>

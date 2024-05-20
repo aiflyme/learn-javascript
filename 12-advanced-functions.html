@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button class="js-button">Click</button>
+    <script>
+        const buttonElement = document.querySelector('.js-button');
+
+        const eventListener = () => {
+            console.log('click');
+        };
+        buttonElement.addEventListener('click',eventListener);
+
+        buttonElement.removeEventListener('click', eventListener);
+
+        ['you','i','he','she'].forEach( (value, index, array) => {
+            console.log(value+'--'+index);
+        });
+        const arrowFunction = (param) => {
+            console.log('hello' + param);
+        }
+        arrowFunction(' world!');
+
+        const oneParam = param => {
+            console.log(param + 1);
+        }
+        oneParam(2);
+        //one line
+        const oneLine = () =>  2 + 3;
+        console.log(oneLine());
+
+        const object2 = {
+            method:()=>{},
+        }
+    </script>
+</body>
+</html>
