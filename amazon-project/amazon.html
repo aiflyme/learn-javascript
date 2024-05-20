@@ -63,25 +63,29 @@
       document.querySelector('.js-products-grid').innerHTML = productsHtml;
 
       //generate product quantity list
-      let selectOptionHtml = '<select>';
-        for(let i = 1; i <= 11; i++) {
+      let selectOptionHtml = '';
+      for(let i = 1; i <= 10; i++) {
         selectOptionHtml += "<option value='" + i + "'>" + i + "</option>";
-        }
-        selectOptionHtml += '<select>';
-          document.querySelectorAll('.js-product-quantity-container').forEach((value)=>{
-            value.innerHTML = selectOptionHtml;
-          });
+      }
+      //selectOptionHtml += '<select>';
+      document.querySelectorAll('.js-product-quantity-select-container').forEach((value)=>{
+        value.innerHTML = selectOptionHtml;
+      });
 
       //add cart action
+      let timeoutId;
       document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
         button.addEventListener('click',()=>{
           const productId = button.dataset.productId;
+
+          //get quantity user choose
+          let quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
 
           let matchingItem;
           cart.forEach((item) => {
             if(productId === item.productId) {
               matchingItem = item;
-              item.quantity += 1;
+              item.quantity += quantity;
             }
           });
 
@@ -89,9 +93,25 @@
             //matchingItem.quantity += 1;
             cart.push({
               productId: productId,
-              quantity: 1,
+              quantity: quantity,
             })
           }
+
+
+          //display added top of the Add to Cart button
+          let AddedToCart = document.querySelector(`.js-added-to-cart-${productId}`);
+          AddedToCart.style.setProperty('opacity', '1');
+
+          // AddedToCart.classList.add('.added-to-cart');
+
+          clearTimeout(timeoutId);
+
+          timeoutId = setTimeout(() => {
+            AddedToCart.style.setProperty('opacity', '0');
+          },2000);
+
+          //console.log(document.querySelector(`.js-added-to-cart-${productId}`).innerHTML);
+
           // else{
           //   cart.push({
           //     productName: productName,

@@ -89,12 +89,13 @@ products.forEach((product)=>{
           </div>
 
           <div class="product-quantity-container js-product-quantity-container">
-            
+            <select class="js-product-quantity-select-container js-quantity-selector-${product.id}">
+            </select>
           </div>
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart js-added-to-cart-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
