@@ -56,10 +56,51 @@
 
       </div>
     </div>
-  <script src="scripts/amazon.js"></script>
-  <script>
+    <script src="data/cart.js"></script>
+    <script src="scripts/amazon.js"></script>
+    <script>
+      //generate product list
       document.querySelector('.js-products-grid').innerHTML = productsHtml;
-  </script>
-<!--  <script src="data/products_remote.js"></script>-->
+
+      //generate product quantity list
+      let selectOptionHtml = '<select>';
+        for(let i = 1; i <= 11; i++) {
+        selectOptionHtml += "<option value='" + i + "'>" + i + "</option>";
+        }
+        selectOptionHtml += '<select>';
+          document.querySelectorAll('.js-product-quantity-container').forEach((value)=>{
+            value.innerHTML = selectOptionHtml;
+          });
+
+      //add cart action
+      document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+        button.addEventListener('click',()=>{
+          const productId = button.dataset.productId;
+
+          let matchingItem;
+          cart.forEach((item) => {
+            if(productId === item.productId) {
+              matchingItem = item;
+              item.quantity += 1;
+            }
+          });
+
+          if(!matchingItem){
+            //matchingItem.quantity += 1;
+            cart.push({
+              productId: productId,
+              quantity: 1,
+            })
+          }
+          // else{
+          //   cart.push({
+          //     productName: productName,
+          //     quantity: 1,
+          //   })
+          // }
+          console.log(cart);
+        });
+      });
+    </script>
   </body>
 </html>

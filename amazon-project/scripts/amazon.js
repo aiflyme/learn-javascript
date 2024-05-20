@@ -45,6 +45,21 @@ const products = [
         type: "clothing",
         sizeChartLink: "images/clothing-size-chart.png"
     },
+    {
+        id: "54e0eccd-8f36-462b-b68a-8182611d9add",
+        image: "images/products/black-2-slot-toaster.jpg",
+        name: "2 Slot Toaster - Black",
+        rating: {
+            stars: 5,
+            count: 2197
+        },
+        priceCents: 1899,
+        keywords: [
+            "toaster",
+            "kitchen",
+            "appliances"
+        ]
+    },
 ];
 
 let productsHtml = '';
@@ -73,19 +88,8 @@ products.forEach((product)=>{
             $${(product.priceCents / 100).toFixed(2) }
           </div>
 
-          <div class="product-quantity-container">
-            <select>
-              <option selected value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
+          <div class="product-quantity-container js-product-quantity-container">
+            
           </div>
 
           <div class="product-spacer"></div>
@@ -95,9 +99,11 @@ products.forEach((product)=>{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>
     `;
 });
+
+
