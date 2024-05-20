@@ -1,6 +1,8 @@
-export const cart = [];
+export let cart = JSON.parse(localStorage.getItem('amazonCart')) || [];
 
 export function addToCart(productId) {
+    //cart = JSON.parse(localStorage.getItem('amazonCart'));
+
     //get quantity user choose
     let quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
     let timeoutId;
@@ -34,4 +36,17 @@ export function addToCart(productId) {
     timeoutId = setTimeout(() => {
         AddedToCart.style.setProperty('opacity', '0');
     },2000);
+}
+
+export function removeFromCart(productId) {
+    let newCart = [];
+    cart.forEach((cartItem) => {
+
+       if(cartItem.productId !== productId) {
+           newCart.push(cartItem);
+       }
+    });
+    cart = newCart;
+    localStorage.setItem('amazonCart', JSON.stringify(newCart));
+
 }
