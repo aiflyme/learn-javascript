@@ -27,7 +27,7 @@ export function addToCart(productId) {
         cartQuantity += quantity;
     }
 
-    console.log(cart);
+    //console.log(cart);
     saveToStorage(cartQuantity);
     //localStorage.setItem('amazonCart', JSON.stringify(cart));
 
@@ -60,10 +60,22 @@ export function removeFromCart(productId) {
 
 }
 
+export function updateDeliveryOption(productId, deliveryOptionId) {
+    let matchingItem;
+
+    cart.forEach((cartItem) => {
+       if(cartItem.productId === productId) {
+           matchingItem = cartItem;
+       }
+    });
+    matchingItem.deliveryOptionId = deliveryOptionId;
+
+    saveToStorage(cartQuantity);
+}
+
 function saveToStorage(cartProductNumber) {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('cartQuantity', Number(cartProductNumber));
     cartQuantity = Number(cartProductNumber);
-
 
 }
