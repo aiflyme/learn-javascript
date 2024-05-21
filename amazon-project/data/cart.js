@@ -1,3 +1,5 @@
+import {renderPaymentSummary} from "../scripts/checkout/paymentSummary.js";
+
 export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 export let cartQuantity = Number(localStorage.getItem('cartQuantity')) || 0;
 
@@ -27,7 +29,6 @@ export function addToCart(productId) {
         cartQuantity += quantity;
     }
 
-    //console.log(cart);
     saveToStorage(cartQuantity);
     //localStorage.setItem('amazonCart', JSON.stringify(cart));
 
@@ -58,6 +59,12 @@ export function removeFromCart(productId) {
 
     saveToStorage(removeCartQuantity)//localStorage.setItem('amazonCart', JSON.stringify(newCart));
 
+    updatePaymentSummary();
+}
+
+//update the checkout payment information
+function updatePaymentSummary() {
+    renderPaymentSummary();
 }
 
 export function updateDeliveryOption(productId, deliveryOptionId) {
