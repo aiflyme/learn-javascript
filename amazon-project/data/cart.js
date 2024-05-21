@@ -1,4 +1,6 @@
 import {renderPaymentSummary} from "../scripts/checkout/paymentSummary.js";
+import {renderOrderSummary} from "../scripts/checkout/orderSummary.js";
+import {checkoutHeader} from "../scripts/checkout/checkoutHeader.js";
 
 export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 export let cartQuantity = Number(localStorage.getItem('cartQuantity')) || 0;
@@ -59,7 +61,9 @@ export function removeFromCart(productId) {
 
     saveToStorage(removeCartQuantity)//localStorage.setItem('amazonCart', JSON.stringify(newCart));
 
+    renderOrderSummary();
     updatePaymentSummary();
+    checkoutHeader();
 }
 
 //update the checkout payment information

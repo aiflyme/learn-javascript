@@ -1,3 +1,5 @@
+import  dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+
 export const deliveryOptions = [
     {
         id: '1',
@@ -11,7 +13,7 @@ export const deliveryOptions = [
     },
     {
         id: '3',
-        deliveryDays: 0,
+        deliveryDays: 1,
         priceCents: 999,
     },
 ];
@@ -23,4 +25,31 @@ export function getDeliveryOption(deliveryOptionId) {
         }
     }
     return false;
+}
+
+export function calculateDeliveryDate(deliveryOption) {
+    const today = dayjs();
+    const deliverydays = skipWeekend(deliveryOption.deliveryDays)
+    const deliveryDate = today.add(deliverydays, 'days');
+
+    return deliveryDate.format('dddd, MMMM D');
+}
+
+function skipWeekend(deliveryDays) {
+    const today = dayjs();
+    let i = deliveryDays;
+    let j = 1;
+    while (i > 0){
+        let dates = today.add(j, 'days');
+        const weekday = Number(dates.format('d'));
+
+        if(weekday === 0 || weekday === 6 ){
+            deliveryDays++;
+        }else{
+            i--;
+        }
+        j++;
+        //console.log(deliveryDays + '--' + i + '--' + weekday);
+    }
+    return deliveryDays;
 }

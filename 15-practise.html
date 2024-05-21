@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="scripts/dayjs.min.js"></script>
+    <script>
+        //15a
+        const today = dayjs();
+        const fiveDays = today.add(5, 'days');
+        console.log(fiveDays.format('MMM D'));
+        //15b
+        const oneMonthsLater = today.add(1, 'months');
+        console.log(oneMonthsLater.format('MMM D'));
+        //15c
+        const oneMonthsBefore = today.subtract(1, 'months');
+        console.log(oneMonthsBefore.format('MMM D'));
+        //15d
+        console.log(today.format('dddd'));
+        //15e
+        function isWeekend(date) {
+            let isWeekend = false;
+            const weekday = Number(date.format('d'));
+            if(weekday === 0 || weekday === 6){
+                isWeekend = true;
+            }
+            return isWeekend;
+        }
+        console.log(isWeekend(today));
+        console.log(isWeekend(fiveDays));
+
+        //15m
+        console.log('15m');
+        function skipWeekend(deliveryDays) {
+            const today = dayjs();
+            let i = deliveryDays;
+            let j = 1;
+            while (i > 0){
+                let dates = today.add(j, 'days');
+                const weekday = Number(dates.format('d'));
+
+                if(weekday === 0 || weekday === 6 ){
+                    deliveryDays++;
+                }else{
+                    i--;
+                }
+                j++;
+                //console.log(deliveryDays + '--' + i + '--' + weekday);
+            }
+            return deliveryDays;
+        }
+        console.log(skipWeekend(5));
+    </script>
+
+</body>
+</html>
