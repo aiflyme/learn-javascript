@@ -93,7 +93,6 @@ function saveToStorage(cartProductNumber) {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('cartQuantity', Number(cartProductNumber));
     cartQuantity = Number(cartProductNumber);
-
 }
 
 
