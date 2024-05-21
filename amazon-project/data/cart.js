@@ -2,7 +2,12 @@ import {renderPaymentSummary} from "../scripts/checkout/paymentSummary.js";
 import {renderOrderSummary} from "../scripts/checkout/orderSummary.js";
 import {checkoutHeader} from "../scripts/checkout/checkoutHeader.js";
 
-export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart //= JSON.parse(localStorage.getItem('cart')) || [];;
+
+loadFromStorage();
+export function loadFromStorage(){
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+}
 export let cartQuantity = Number(localStorage.getItem('cartQuantity')) || 0;
 
 export function addToCart(productId) {
@@ -88,5 +93,31 @@ function saveToStorage(cartProductNumber) {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('cartQuantity', Number(cartProductNumber));
     cartQuantity = Number(cartProductNumber);
+
+}
+
+
+export function addToCartForTest(productId) {
+
+    let matchingItem;
+    console.log(cart);
+    cart.forEach((cartItem) => {
+        if(productId === cartItem.productId) {
+            matchingItem = cartItem;
+            cartItem.quantity += 1;
+        }
+    });
+
+    if(!matchingItem){
+
+        //matchingItem.quantity += 1;
+        cart.push({
+            productId: productId,
+            quantity: 1,
+            deliveryOptionId: '1',
+        })
+    }
+
+    saveToStorage(1);
 
 }
