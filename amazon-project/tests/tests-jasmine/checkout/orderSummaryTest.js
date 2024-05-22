@@ -1,9 +1,16 @@
 import {renderOrderSummary} from "../../../scripts/checkout/orderSummary.js";
 import {cart, loadFromStorage} from "../../../data/cart.js";
+import {loadProductsFetch} from "../../../data/products";
 
 describe('test suites: renderOrderSummary', () => {
     const productId1 =  '8c9c52b5-5a19-4bcb-a5d1-158a74287c53';
     const productId2 =  '83d4ca15-0f35-48f5-b7a3-1ea210004f2e';
+
+    beforeAll((done)=>{
+        loadProductsFetch(()=>{
+           done();
+        });
+    })
 
     beforeEach(()=>{
         spyOn(localStorage, 'setItem');
