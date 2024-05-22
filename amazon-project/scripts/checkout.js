@@ -14,13 +14,9 @@ import {loadProducts, loadProductsFetch} from "../data/products.js";
 //     console.log('next step');
 // });
 
-Promise.all([
-    loadProductsFetch(),
-    new Promise((resolve) => {
-        resolve();
-    })
-]).then((value)=>{
-    console.log(value);
+async function loadPage() {
+    await loadProductsFetch();
+
     //left checkout cart goods
     renderOrderSummary();
 
@@ -29,4 +25,23 @@ Promise.all([
 
     //top head
     checkoutHeader();
-});
+
+}
+
+loadPage();
+// Promise.all([
+//     loadProductsFetch(),
+//     new Promise((resolve) => {
+//         resolve();
+//     })
+// ]).then((value)=>{
+//     //console.log(value);
+//     //left checkout cart goods
+//     renderOrderSummary();
+//
+//     //right checkout price list
+//     renderPaymentSummary();
+//
+//     //top head
+//     checkoutHeader();
+// });

@@ -1,6 +1,6 @@
 import {renderOrderSummary} from "../../../scripts/checkout/orderSummary.js";
 import {cart, loadFromStorage} from "../../../data/cart.js";
-import {loadProductsFetch} from "../../../data/products";
+import {loadProductsFetch} from "../../../data/products.js";
 
 describe('test suites: renderOrderSummary', () => {
     const productId1 =  '8c9c52b5-5a19-4bcb-a5d1-158a74287c53';
