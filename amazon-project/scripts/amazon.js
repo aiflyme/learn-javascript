@@ -32,6 +32,11 @@ products.forEach((product)=>{
             <select class="js-product-quantity-select-container js-quantity-selector-${product.id}">
             </select>
           </div>
+          
+          ${
+            product.extraInfoHTML()
+          }
+
 
           <div class="product-spacer"></div>
 
