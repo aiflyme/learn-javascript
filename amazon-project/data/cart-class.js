@@ -2,18 +2,30 @@ import {renderPaymentSummary} from "../scripts/checkout/paymentSummary.js";
 import {renderOrderSummary} from "../scripts/checkout/orderSummary.js";
 import {checkoutHeader} from "../scripts/checkout/checkoutHeader.js";
 
-const cart = {
-    cartItems:undefined,
-    cartQuantity : Number(localStorage.getItem('cartQuantity')) || 0,
+class Cart {
+    cartItems;
+    cartQuantity ;
 
-    loadFromStorage : function (){
-        this.cartItems = JSON.parse(localStorage.getItem('cart-oop')) || [];
-    },
+    localStorageCartQuantity;
+    localStorageKey;
+
+    constructor(localStorageKey) {
+        this.localStorageKey = localStorageKey;
+        this.localStorageCartQuantity = localStorageKey + '-cartQuantity';
+        this.loadFromStorage();
+
+        cartQuantity = Number(localStorage.getItem(localStorageCartQuantity)) || 0;
+    }
+
+    loadFromStorage () {
+        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [];
+    }
+
     saveToStorage(cartProductNumber) {
-        localStorage.setItem('cart-oop', JSON.stringify(this.cartItems));
-        localStorage.setItem('cartQuantity-oop', Number(cartProductNumber));
+        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.localStorageCartQuantity, Number(cartProductNumber));
         this.cartQuantity = Number(cartProductNumber);
-    },
+    }
 
     addToCart(productId) {
         let quantity = 1;//Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
@@ -52,7 +64,7 @@ const cart = {
         // timeoutId = setTimeout(() => {
         //     AddedToCart.style.setProperty('opacity', '0');
         // },2000);
-    },
+    }
 
 
     removeFromCart (productId) {
@@ -72,7 +84,7 @@ const cart = {
         renderOrderSummary();
         renderPaymentSummary();
         checkoutHeader();
-    },
+    }
 
     updateDeliveryOption(productId, deliveryOptionId) {
         let matchingItem;
@@ -86,8 +98,10 @@ const cart = {
 
         this.saveToStorage(cartQuantity);
     }
-};
+}
 
-cart.loadFromStorage();
-cart.addToCart('aad29d11-ea98-41ee-9285-b916638cac4agi');
-// console.log(cart);
+const cart = new Cart();
+const businessCart = new Cart();
+
+console.log(cart);
+console.log(businessCart);

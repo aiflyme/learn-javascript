@@ -67,13 +67,29 @@ export function removeFromCart(productId) {
     saveToStorage(removeCartQuantity)//localStorage.setItem('amazonCart', JSON.stringify(newCart));
 
     renderOrderSummary();
-    updatePaymentSummary();
+    renderPaymentSummary();
     checkoutHeader();
 }
 
-//update the checkout payment information
-function updatePaymentSummary() {
+export function updateQuantity(productId, newQuantity) {
+    let newCart = [];
+    cartQuantity = 0;
+    cart.forEach((cartItem)=>{
+        if(cartItem.productId === productId) {
+            cartItem.quantity = Number(newQuantity);
+
+        }
+        cartQuantity +=  cartItem.quantity;
+        newCart.push(cartItem);
+    });
+    cart = newCart;
+
+    saveToStorage(cartQuantity);
+
+
+    renderOrderSummary();
     renderPaymentSummary();
+    checkoutHeader();
 }
 
 export function updateDeliveryOption(productId, deliveryOptionId) {

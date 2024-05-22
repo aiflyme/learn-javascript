@@ -1,7 +1,7 @@
-import {cart, cartQuantity, removeFromCart, updateDeliveryOption} from "../../data/cart.js";
+import {cart, cartQuantity, removeFromCart, updateDeliveryOption, updateQuantity} from "../../data/cart.js";
 import {getProduct, products} from "../../data/products.js";
 import {deliveryOptions, getDeliveryOption, calculateDeliveryDate} from "../../data/deliveryOptions.js";
-import {formatCurrency} from "../utils/money.js";
+import {formatCurrency, isNumeric} from "../utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import {renderPaymentSummary} from "./paymentSummary.js";
 
@@ -46,14 +46,19 @@ export function renderOrderSummary() {
                         </div>
                         <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                           <span>
-                            Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                            Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
                           </span>
-                            <span class="update-quantity-link link-primary js-update-quantity-link">
+                          <input class="quantity-input js-quantity-input-${matchingProduct.id}">
+                            <span class="save-quantity-link link-primary js-save-quantity-link js-save-quantity-link-${matchingProduct.id}" data-product-id="${matchingProduct.id}">Save</span>
+                            <span class="update-quantity-link link-primary js-update-quantity-link js-update-quantity-link-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
                             Update
                           </span>
                             <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
                             Delete
                           </span>
+                        </div>
+                        <div>
+                            <span class="save-warn-information-${matchingProduct.id}"></span>
                         </div>
                     </div>
         
@@ -82,6 +87,71 @@ export function renderOrderSummary() {
             //document.querySelector('.js-return-home-link').innerText = cartQuantity + ' items';
 
         })
+    });
+
+    //update item in cart
+    document.querySelectorAll('.js-update-quantity-link').forEach((updateButton)=>{
+        updateButton.addEventListener('click', ()=>{
+            const productId = updateButton.dataset.productId;
+
+            const container = document.querySelector(
+                `.js-cart-item-container-${productId}`
+            );
+            container.classList.add('is-editing-quantity');
+
+        });
+    })
+
+    //save item in cart
+    document.querySelectorAll('.js-save-quantity-link').forEach((saveButton)=>{
+        saveButton.addEventListener('click', ()=>{
+            const productId = saveButton.dataset.productId;
+
+            const newQuantity= document.querySelector(`.js-quantity-input-${productId}`).value;
+            if(!isNumeric(newQuantity) || newQuantity < 0 || newQuantity > 1000){
+                document.querySelector(`.save-warn-information-${productId}`).innerText = 'Wrong Number';
+                return ;
+            }
+
+            const container = document.querySelector(
+                `.js-cart-item-container-${productId}`
+            );
+            container.classList.remove('is-editing-quantity');
+
+            document.querySelector(`.js-quantity-label-${productId}`).innerText = Number(newQuantity);
+
+            updateQuantity(productId, newQuantity);
+
+        });
+    })
+
+    //use enter save item in cart
+    document.body.addEventListener('keydown',(event)=>{
+        if(event.key === 'Enter'){
+            //const productId = saveButton.dataset.productId;
+            document.querySelectorAll('.js-save-quantity-link').forEach((saveButton)=>{
+                let productId = saveButton.dataset.productId;
+                let curSaveButton= document.querySelector(`.js-quantity-input-${productId}`);
+                if(curSaveButton.offsetLeft > 0){
+                    console.log(curSaveButton.offsetLeft);
+                    let newQuantity = curSaveButton.value;
+
+                    if(!isNumeric(newQuantity) || newQuantity < 0 || newQuantity > 1000){
+                        document.querySelector(`.save-warn-information-${productId}`).innerText = 'Wrong Number';
+                        return false;
+                    }
+
+                    const container = document.querySelector(
+                        `.js-cart-item-container-${productId}`
+                    );
+                    container.classList.remove('is-editing-quantity');
+
+                    document.querySelector(`.js-quantity-label-${productId}`).innerText = Number(newQuantity);
+
+                    updateQuantity(productId, newQuantity);
+                }
+            });
+        }
     });
 
     function deliveryOptionsHtml(matchingProduct, cartItem) {
